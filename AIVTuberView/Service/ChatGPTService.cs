@@ -21,6 +21,7 @@ namespace AIVTuberView.Service
         {
             using (AIBrain brain = new AIBrain(userName))
             {
+                Console.WriteLine("Executing brain think");
                 if (!brain.GetChats().Any())
                 {
                     brain.Add(ChatMessage.FromSystem(ConfigService.Instance.AIStory));
@@ -33,7 +34,7 @@ namespace AIVTuberView.Service
                     Model = Models.ChatGpt3_5Turbo,
                     Messages = result,
                     User = userName,
-                    MaxTokens = 256,
+                    MaxTokens = 1440,
                     Temperature = 1
                 });
                 try
@@ -60,20 +61,30 @@ namespace AIVTuberView.Service
                     return response.Choices.First().Message.Content;
                 }
             }
-
         }
 
         public async Task<string> CreateTalk()
         {
-            ChatCompletionCreateResponse response = await ChatGpt.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest()
+            using (AIBrain brain = new AIBrain("annonymous"))
             {
-                Model = Models.ChatGpt3_5Turbo,
-                Messages = new List<ChatMessage> { ChatMessage.FromSystem(ConfigService.Instance.AIStory), ChatMessage.FromUser("Say something interesting.") },
-                MaxTokens = 256,
-                Temperature = 1
-            });
-            Console.WriteLine("Token used: " + response.Usage.TotalTokens);
-            return response.Choices.First().Message.Content;
+                if (!brain.GetChats().Any())
+                {
+                    brain.Add(ChatMessage.FromSystem(ConfigService.Instance.AIStory));
+                }
+                brain.Add(ChatMessage.FromUser("Say something interesting."));
+                var result = brain.GetChats();
+                result.Reverse();
+                ChatCompletionCreateResponse response = await ChatGpt.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest()
+                {
+                    Model = Models.ChatGpt3_5Turbo,
+                    Messages = result,
+                    User = "annonymous",
+                    MaxTokens = 1440,
+                    Temperature = 1
+                });
+                Console.WriteLine("Token used: " + response.Usage.TotalTokens);
+                return response.Choices.First().Message.Content;
+            }
         }
 
         public async Task<string> GetTitle()

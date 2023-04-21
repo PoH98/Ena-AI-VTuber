@@ -20,7 +20,7 @@ namespace AIVTuberView.Service
 
         }
 
-        public async Task<string> StartNewStream(ChatGPTService chatService)
+        public string StartNewStream(ChatGPTService chatService)
         {
             //string title = await chatService.GetTitle();
             youTube = new YouTubeService(new BaseClientService.Initializer
@@ -120,7 +120,7 @@ namespace AIVTuberView.Service
                                     return;
                                 }
                         })(document.getElementsByTagName(""yt-live-chat-text-message-renderer""))
-                    }, 100);
+                    }, 300);
                 })()");
             }
         }

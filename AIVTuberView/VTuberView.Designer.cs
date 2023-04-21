@@ -70,7 +70,6 @@
             this.Live2DView.Name = "Live2DView";
             this.Live2DView.Size = new System.Drawing.Size(631, 639);
             this.Live2DView.TabIndex = 0;
-            this.Live2DView.Text = "chromiumWebBrowser1";
             // 
             // panel2
             // 
@@ -89,7 +88,6 @@
             this.ChatboxView.Name = "ChatboxView";
             this.ChatboxView.Size = new System.Drawing.Size(400, 639);
             this.ChatboxView.TabIndex = 0;
-            this.ChatboxView.Text = "chromiumWebBrowser2";
             // 
             // VTuberView
             // 

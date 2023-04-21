@@ -1,5 +1,8 @@
 <template>
   <canvas ref="canvas"></canvas>
+  <div class="text" id="text">
+
+  </div>
 </template>
 
 <script>
@@ -76,6 +79,7 @@ export default {
 <style>
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 #app {
@@ -84,5 +88,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.text{
+  position: absolute;
+  bottom: 10%;
+  left:100px;
+  right: 100px;
+  font-size: 28px;
+  background-color: black;
+  color: white;
+  font-family: 'VT323', monospace;
 }
 </style>

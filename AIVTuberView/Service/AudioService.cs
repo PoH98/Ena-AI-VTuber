@@ -44,7 +44,6 @@ namespace AIVTuberView.Service
                 Text = message
             };
             SynthesizeSpeechResponse response = await client.SynthesizeSpeechAsync(input, voiceSelection, audioConfig);
-            using Stream wav = new MemoryStream();
             using (Stream output = new MemoryStream())
             {
                 using MemoryStream pcmStream = new();

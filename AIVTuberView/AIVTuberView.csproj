@@ -9,13 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.7.1" />
-    <PackageReference Include="CefSharp.WinForms.NETCore" Version="110.0.300" />
+    <PackageReference Include="Betalgo.OpenAI" Version="6.8.5" />
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="112.2.70" />
     <PackageReference Include="Concentus" Version="1.1.7" />
     <PackageReference Include="Concentus.OggFile" Version="1.0.4" />
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.60.0.2945" />
     <PackageReference Include="Google.Cloud.TextToSpeech.V1" Version="3.2.0" />
-    <PackageReference Include="LiteDB" Version="5.0.15" />
+    <PackageReference Include="LiteDB" Version="5.0.16" />
     <PackageReference Include="NAudio" Version="2.1.0" />
     <PackageReference Include="VaderSharp2" Version="3.3.2.1" />
   </ItemGroup>

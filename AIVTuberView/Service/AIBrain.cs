@@ -22,7 +22,7 @@ namespace AIVTuberView.Service
 
         public List<ChatMessage> GetChats()
         {
-            return collection.FindAll().OrderByDescending(x => x.DateTime).Take(20).Select(x => x.ChatMessage).ToList();
+            return collection.FindAll().OrderByDescending(x => x.DateTime).Take(10).Select(x => x.ChatMessage).ToList();
         }
 
         public void Add(ChatMessage message)
@@ -30,6 +30,11 @@ namespace AIVTuberView.Service
             if(Count() > 20)
             {
                 collection.DeleteAll();
+                collection.Insert(new ChatMessageRecord 
+                { 
+                    ChatMessage = ChatMessage.FromSystem(ConfigService.Instance.AIStory),
+                    DateTime = DateTime.Now
+                });
             }
             collection.Insert(new ChatMessageRecord
             {
@@ -43,6 +48,7 @@ namespace AIVTuberView.Service
         public void Dispose()
         {
             db.Checkpoint();
+            db.Dispose();
         }
 
         string GetStringSha256Hash(string text)

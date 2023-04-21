@@ -10,7 +10,7 @@ namespace AIVTuberView.Service
         private ChromiumWebBrowser browser;
         private bool ProcessingChatGPT;
         private readonly SentimentIntensityAnalyzer analyzer;
-        private AudioService audio;
+        private COEIROINKAudioService audio;
         private bool Inited = false;
         private Task Ticker;
         private CancellationTokenSource Cancellation;
@@ -41,7 +41,7 @@ namespace AIVTuberView.Service
                 throw new InvalidOperationException("Live2D Service had been inited");
             }
             this.browser = browser;
-            audio = new AudioService(this.browser);
+            audio = new COEIROINKAudioService(this.browser);
             this.browser.LoadingStateChanged += Live2DView_LoadingStateChanged;
             this.browser.Load("https://cefsharp/");
             this.browser.JavascriptObjectRepository.Register("played", new PlayedObject(this)); 
@@ -126,6 +126,7 @@ namespace AIVTuberView.Service
         public async Task Reply(string message)
         {
             ProcessingChatGPT = false;
+            browser.ExecuteScriptAsync("document.getElementById(\"text\").innerHTML = '" + message + "'");
             if (Ticker != null)
             {
                 Cancellation.Cancel();

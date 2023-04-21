@@ -30,7 +30,7 @@ namespace AIVTuberView
             Console.SetOut(new ControlWriter(richTextBox1));
             l2d.InitChromium(Live2DView);
             yt.CommentReceived += Yt_CommentReceived;
-            Topic = await yt.StartNewStream(cgpt);
+            Topic = yt.StartNewStream(cgpt);
             yt.InitChromium("https://www.youtube.com/watch?v=" + yt.StreamID, ChatboxView);
             string url = "https://www.youtube.com/watch?v=" + yt.StreamID;
             try
