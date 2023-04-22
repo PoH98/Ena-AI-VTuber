@@ -53,6 +53,7 @@ namespace AIVTuberView.Service
         [JsonIgnore]
         public UserCredential Credential { get; set; }
         public string AIStory { get; set; }
+        public int Speaker { get; set; }
     }
 
     public class ChatGPTConfig

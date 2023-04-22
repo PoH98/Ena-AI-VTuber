@@ -31,8 +31,8 @@ namespace AIVTuberView.Service
             {
                 question = true;
             }
-            var json = new StringContent("{\"accent_phrases\":" + phrasesResponse + ",\"speedScale\":1,\"pitchScale\":0.15,\"intonationScale\":1.5,\"volumeScale\":1,\"prePhonemeLength\":0,\"postPhonemeLength\":0,\"outputSamplingRate\":44100,\"outputStereo\":false,\"kana\":\"\"}", Encoding.UTF8, "application/json");
-            var audioResponse = await coeiroinkClient.PostAsync("/synthesis?speaker=0&enable_interrogative_upspeak=" + question, json);
+            var json = new StringContent("{\"accent_phrases\":" + phrasesResponse + ",\"speedScale\":1,\"pitchScale\":0,\"intonationScale\":1,\"volumeScale\":2,\"prePhonemeLength\":0,\"postPhonemeLength\":0,\"outputSamplingRate\":44100,\"outputStereo\":false,\"kana\":\"\"}", Encoding.UTF8, "application/json");
+            var audioResponse = await coeiroinkClient.PostAsync("/synthesis?speaker="+ConfigService.Instance.Speaker+"&enable_interrogative_upspeak=" + question, json);
             using (Stream output = await audioResponse.Content.ReadAsStreamAsync())
             {
                 RawSourceWaveStream wavStream = new(output, new WaveFormat(44100, 1));
@@ -46,7 +46,7 @@ namespace AIVTuberView.Service
         private async Task<string> GetPhrases(string message)
         {
             var encode = HttpUtility.UrlEncode(message);
-            var response = await coeiroinkClient.PostAsync("/accent_phrases?text=" + encode + "&speaker=0", null);
+            var response = await coeiroinkClient.PostAsync("/accent_phrases?text=" + encode + "&speaker=" + ConfigService.Instance.Speaker, null);
             return await response.Content.ReadAsStringAsync();
         }
     }
